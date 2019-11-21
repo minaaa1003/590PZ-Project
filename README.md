@@ -1,2 +1,2 @@
-# 590PZ-Project
-Forks of this are student projects for IS 590PZ
+# othello_ai_solver
+A game with user and AI solver competing each other.
