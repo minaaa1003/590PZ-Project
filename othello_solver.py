@@ -30,7 +30,6 @@ def print_board(board):
     for row in range(1, 9):
         begin, end = 10*row + 1, 10*row + 9
         rep += '%d %s\n' % (row, ' '.join(board[begin:end]))
-    print(rep)
     return rep
 
 print_board(board = [OUTER] * 100)
@@ -162,7 +161,6 @@ square_weights = [
 ]
 max_value = sum(map(abs, square_weights))
 min_value = -max_value
-
 #alpha_beta_value calculation for alpha-beta search
 def alpha_beta_value(player, board):
     diff = score(player, board)
@@ -180,7 +178,6 @@ def alphabeta(player, board, alpha, beta, depth, evaluate):
         return -alphabeta(next_player(player), board, -beta, -alpha, depth-1, evaluate)[0]
     
     valid_moves = all_valid_moves(player, board)
-
     if not valid_moves:
         if not any_valid_moves(next_player(player), board):
             return alpha_beta_value(player,board), None
@@ -196,11 +193,14 @@ def alphabeta(player, board, alpha, beta, depth, evaluate):
     return alpha, best_move
 
 #alpha-beta search -> move
-def hard(depth, evaluate):
+def hard(depth, evaluate, board):
     def decision(player, board):
-        alpha_val,best = alphabeta(player, board, min_value, max_value, depth, evaluate)
-        return best
-    return decision(BLACK, initial_board())
+        best = alphabeta(player, board, min_value, max_value, depth, evaluate)[1]
+        if is_valid(best,board,player):
+            return best
+        else:
+            return decision(player,board)
+    return decision(WHITE, board)
 
 #get move according to strategy and reversion -> return move(tuple)
 def get_move(player,board,mode):
@@ -223,11 +223,10 @@ def get_move(player,board,mode):
         if mode == 'Medium':
             move = medium(board,player)
         if mode == 'Hard':
-            move = hard(board,player)
+            move = hard(5,player,board)
+            #move = hard(5,next_player(player),board)
         return move
         
-        
-
 #play the game by calling get_move according to black / white strategies
 #-> return board
 def play(mode):
@@ -254,3 +253,4 @@ if __name__ == '__main__':
         if mode in ['Easy','Medium','Hard']:
             break
     play(mode)
+
