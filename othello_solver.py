@@ -199,7 +199,7 @@ def hard(depth, evaluate, board):
         if is_valid(best,board,player):
             return best
         else:
-            return decision(player,board)
+            return decision(next_player(player),board)
     return decision(WHITE, board)
 
 #get move according to strategy and reversion -> return move(tuple)
