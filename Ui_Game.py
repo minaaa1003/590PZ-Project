@@ -48,6 +48,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "Easy"))
-        self.label.setText(_translate("MainWindow", "Othellow Game"))
+        self.label.setText(_translate("MainWindow", "Othello Game"))
         self.pushButton_2.setText(_translate("MainWindow", "Medium"))
         self.pushButton_3.setText(_translate("MainWindow", "Hard"))
